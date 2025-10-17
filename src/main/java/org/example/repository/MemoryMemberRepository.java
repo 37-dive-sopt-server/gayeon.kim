@@ -22,8 +22,19 @@ public class MemoryMemberRepository {
         return Optional.ofNullable(store.get(id));
     }
 
+    public Optional<Member> findByEmail(String email) {
+        if (email == null) return Optional.empty();
+        return store.values()
+                .stream()
+                .filter(m -> email.equals(m.getEmail()))
+                .findFirst();
+    }
 
     public List<Member> findAll() {
         return new ArrayList<>(store.values());
+    }
+
+    public void delete(Long memberId) {
+        store.remove(memberId);
     }
 }
